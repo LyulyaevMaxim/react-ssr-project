@@ -28,7 +28,6 @@ class Contact extends React.Component<IStateToProps & IDispatchToProps & IProps,
       <div>
         <div className="jumbotron">
           <h1 className="display-3">{'Contact'}</h1>
-          <p className="lead">{'This contact form uses redux-form to do client-side validation.'}</p>
         </div>
       </div>
     );
