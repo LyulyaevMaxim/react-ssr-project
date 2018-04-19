@@ -1,0 +1,25 @@
+{
+  "name": "react-project",
+  "description": "Tools configuration",
+  "author": "Maxim Lyulyaev",
+  "version": "1.0.0",
+  "devDependencies": {
+    "lint-staged": "^7.0.2",
+    "prettier": "^1.11.1",
+    "prettierrc": "^0.0.0-5",
+    "stylelint": "9.2.0",
+    "stylelint-config-standard": "18.2.0",
+    "stylelint-order": "0.8.1",
+    "tslib": "1.9.0",
+    "tslint": "5.9.1",
+    "tslint-react": "3.5.1"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx,json}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "repository": "https://maxim-buslaev@github.com/maxim-buslaev/react-project.git",
+  "license": "MIT"
+}

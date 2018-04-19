@@ -4,15 +4,18 @@
       "presets": [
         "stage-2",
         "react",
-        ["env", {
-          "modules": false,
-          "targets": {
-            "browsers": [
-              "last 2 versions"
-            ]
-          },
-          "useBuiltIns": true
-        }]
+        [
+          "env",
+          {
+            "modules": false,
+            "targets": {
+              "browsers": [
+                "last 2 versions"
+              ]
+            },
+            "useBuiltIns": true
+          }
+        ]
       ],
       "plugins": [
         "react-hot-loader/babel"
@@ -22,11 +25,14 @@
       "presets": [
         "stage-2",
         "react",
-        ["env", {
-          "targets": {
-            "node": "8.2.0"
+        [
+          "env",
+          {
+            "targets": {
+              "node": "8.2.0"
+            }
           }
-        }]
+        ]
       ],
       "plugins": [
         "transform-class-properties",

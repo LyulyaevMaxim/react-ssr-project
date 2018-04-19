@@ -1,9 +1,8 @@
 {
   "docs": "https://www.typescriptlang.org/docs/handbook/compiler-options.html",
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "es5",
+    "module": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
     "removeComments": false,
@@ -19,14 +18,15 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "pretty": true
   },
   "include": [
-    "src/**/*"
+    "../src/**/*"
   ],
   "exclude": [
+    "../node_modules",
     "node_modules"
   ]
 }
