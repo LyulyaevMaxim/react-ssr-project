@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{title}</title>
+        <meta name="author" content="Maxim Lyulyaev">
+        <meta name="keywords" content="webpack react redux js ssr hapi">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="{description}">
+
+        <!--для Apple-->
+        <meta name="apple-mobile-web-app-title" content="React Project Mobile">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!--для Android-->
+        <meta name="application-name" content="React Project Mobile">
+        <meta name="mobile-web-app-capable" content="yes">
+        <link
+            href="assets/media/favicon.ico"
+            rel="icon"
+        />
+    </head>
+    <body>
+        <app-container id="root">{content}</app-container>
+
+        <script>window.__STATE__ = {state}</script>
+        <script>window.__ASYNC_COMPONENTS_STATE__ = {asyncComponentsState}</script>
+        <noscript>Необходимо включить JavaScript для работы с этим приложением.</noscript>
+    </body>
+</html>
