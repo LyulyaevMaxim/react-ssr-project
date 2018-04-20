@@ -1,7 +1,15 @@
 {
   "docs": "https://www.typescriptlang.org/docs/handbook/compiler-options.html",
   "compilerOptions": {
+    "locale": "ru",
     "outDir": "../dist",
+    "baseUrl": "../",
+    "paths": {
+      "~/*": [
+        "*"
+      ]
+    },
+    "preserveSymlinks": true,
     "target": "es2015",
     "module": "commonjs",
     "moduleResolution": "node",

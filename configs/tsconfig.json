@@ -1,10 +1,18 @@
 {
   "docs": "https://www.typescriptlang.org/docs/handbook/compiler-options.html",
   "compilerOptions": {
+    "locale": "ru",
     "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
+    "baseUrl": "../",
+    "paths": {
+      "~/*": [
+        "*"
+      ]
+    },
+    "preserveSymlinks": true,
     "removeComments": false,
     "noImplicitAny": true,
     "noImplicitThis": true,

@@ -7,6 +7,7 @@ const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const RobotstxtPlugin = require('robotstxt-webpack-plugin').default;
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const pkg = require('./package.json');
 
@@ -15,20 +16,17 @@ const HOST = process.env.HOST || 'localhost';
 const NODE_ENV = process.env.NODE_ENV || 'production';
 const isProduction = (NODE_ENV === 'production');
 const isDevelopment = (NODE_ENV === 'development');
+const root = path.resolve(__dirname, './')
 
 const webpackConfig = {
   entry: isDevelopment
     ? [
-      'babel-polyfill',
-
       'react-hot-loader/patch', // activate HMR for React
       `webpack-hot-middleware/client?path=http://${HOST}:${PORT}/__webpack_hmr`, // bundle the client for webpack-hot-middleware and connect to the provided endpoint
 
       './src/client.tsx',
     ]
     : [
-      'babel-polyfill',
-
       './src/client.tsx',
     ],
 
@@ -70,16 +68,26 @@ const webpackConfig = {
         ),
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)?$/,
         use: [
           {
             loader: 'awesome-typescript-loader',
             options: {
-              configFileName: 'configs/tsconfig.json',
+              configFileName: `${root}/configs/tsconfig.json`,
+              reportFiles: [`${root}/src/**/*.{ts,tsx}`],
+              useCache: true,
+              //usePrecompiledFiles: true, //использовать js файлы
+              //errorsAsWarnings: true, //вместо ошибок TS даёт предупреждения,
+              forceIsolatedModules: true,
+              //useTranspileModule: true, //режим быстрой генерации
+              useBabel: true,
+              babelCore: '@babel/core',
+              babelOptions: require(`${root}/configs/babelrc`)
             },
-          },
+          }
         ],
         include: path.join(__dirname, 'src'),
+        exclude: /node_modules/,
       },
     ],
   },
