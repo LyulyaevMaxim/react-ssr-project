@@ -4,7 +4,7 @@ const ContactsAsync = asyncComponent({
   name: 'ContactsAsync',
   serverMode: 'resolve',
   resolve: () => {
-    return import(/* webpackChunkName: "Contacts" */ './contacts');
+    return require(/* webpackChunkName: "Contacts" */ './contacts');
   },
 });
 

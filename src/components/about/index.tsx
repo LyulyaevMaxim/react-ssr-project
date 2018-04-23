@@ -4,7 +4,7 @@ const AboutAsync = asyncComponent({
   name: 'AboutAsync',
   serverMode: 'resolve',
   resolve: () => {
-    return import(/* webpackChunkName: "About" */ './about');
+    return require(/* webpackChunkName: "About" */ './about');
   },
 });
 
