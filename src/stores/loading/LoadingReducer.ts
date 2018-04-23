@@ -3,12 +3,11 @@ import ILoadingReducerState from './ILoadingReducerState';
 import IAction from '../IAction';
 
 class LoadingReducer {
-
     private static readonly _initialState: ILoadingReducerState = {
         isLoading: false,
     };
 
-    public static reducer(state: ILoadingReducerState = LoadingReducer._initialState, action: IAction<any>): ILoadingReducerState {
+    static reducer(state: ILoadingReducerState = LoadingReducer._initialState, action: IAction<any>): ILoadingReducerState {
         switch (action.type) {
             case LoadingAction.SET_LOADING:
                 return LoadingReducer._setLoading(state, action);
@@ -23,7 +22,6 @@ class LoadingReducer {
             isLoading: action.payload,
         };
     }
-
 }
 
 export default LoadingReducer;

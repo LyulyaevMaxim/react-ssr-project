@@ -5,8 +5,7 @@ import IAction from '../IAction';
 import IUserReducerState from './IUserReducerState';
 
 class UserSaga {
-
-    public static* loadUser(action: IAction<void> = null) {
+    static* loadUser(action: IAction<void> = null) {
         yield put({
             type: LoadingAction.SET_LOADING,
             payload: true,
@@ -35,7 +34,6 @@ class UserSaga {
             payload: false,
         });
     }
-
 }
 
 export default UserSaga;

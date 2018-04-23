@@ -43,18 +43,18 @@ let plugins = [
   '@babel/plugin-proposal-object-rest-spread',
   '@babel/plugin-syntax-dynamic-import',
   '@babel/plugin-proposal-class-properties',
-  // [
-  //   'react-css-modules',
-  //   {
-  //     webpackHotModuleReloading: isDev,
-  //     handleMissingStyleName: 'warn',
-  //     generateScopedName: '[local]',//'[local]-[hash:base64:4]',
-  //     filetypes: {
-  //       '.scss': { syntax: 'postcss-scss' }
-  //     },
-  //     exclude: 'node_modules'
-  //   }
-  // ]
+  [
+    'react-css-modules',
+    {
+      webpackHotModuleReloading: isDev,
+      handleMissingStyleName: 'warn',
+      generateScopedName: '[local]-[hash:base64:4]',
+      filetypes: {
+        '.scss': { syntax: 'postcss-scss' }
+      },
+      exclude: 'node_modules'
+    }
+  ]
 ]
 
 if (isDev) {

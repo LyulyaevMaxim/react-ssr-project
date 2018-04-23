@@ -75,9 +75,6 @@ module.exports = /*(env, argv) => {
 				? new webpack.NamedModulesPlugin() // prints more readable module names in the browser console on HMR updates
 				: null,*/
 
-			/*isDev
-				? new webpack.NoEmitOnErrorsPlugin() // do not emit compiled assets that include errors
-				: null,*/
 
 			new MiniCssExtractPlugin({
 				filename: isDev

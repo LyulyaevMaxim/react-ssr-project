@@ -3,7 +3,6 @@ import IUserReducerState from './IUserReducerState';
 import IAction from '../IAction';
 
 class UserReducer {
-
     private static readonly _initialState: IUserReducerState = {
         name: {
             title: '',
@@ -24,7 +23,7 @@ class UserReducer {
         },
     };
 
-    public static reducer(state: IUserReducerState = UserReducer._initialState, action: IAction<any>): IUserReducerState {
+    static reducer(state: IUserReducerState = UserReducer._initialState, action: IAction<any>): IUserReducerState {
         switch (action.type) {
             case UserAction.LOAD_USER_SUCCESS:
                 return UserReducer._loadUser(state, action);
@@ -39,7 +38,6 @@ class UserReducer {
             ...action.payload,
         };
     }
-
 }
 
 export default UserReducer;

@@ -12,9 +12,7 @@ import ServerManager from './ServerManager';
   await manager.registerPlugin(inert);
 
   if (manager.isDevelopment) {
-    const hapiWebpackHotPlugin = new HapiWebpackHotPlugin();
-
-    await manager.registerPlugin(hapiWebpackHotPlugin.plugin);
+    await manager.registerPlugin((new HapiWebpackHotPlugin()).plugin);
   }
 
   manager.registerController(new AssetsController());

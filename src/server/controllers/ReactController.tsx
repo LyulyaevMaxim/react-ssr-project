@@ -15,10 +15,9 @@ import ProviderUtility from '../../utils/ProviderUtility';
 
 
 class ReactController implements IController {
-
   private _html: string = null;
 
-  public mapRoutes(server: Hapi.Server): void {
+  mapRoutes(server: Hapi.Server): void {
     server.route({
       method: 'GET',
       path: '/{route*}',
@@ -83,10 +82,8 @@ class ReactController implements IController {
 
   private async _loadHtmlFile(): Promise<string> {
     const htmlPath = path.resolve(__dirname, '../../public/index.html');
-
     return fse.readFile(htmlPath, 'utf8');
   }
-
 }
 
 export default ReactController;

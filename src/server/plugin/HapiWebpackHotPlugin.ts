@@ -5,15 +5,14 @@ import * as Webpack from 'webpack';
 import ServerManager from '../ServerManager';
 
 class HapiWebpackHotPlugin {
-
-    public get plugin(): Hapi.ServerRegisterPluginObject<any> {
+    get plugin(): Hapi.ServerRegisterPluginObject<any> {
         const config: Webpack.Configuration = require('../../../webpack.config.js'); // tslint:disable-line no-require-imports
         const compiler: Webpack.Compiler = Webpack(config);
 
         compiler.plugin('done', (stats: any) => this._onDone(stats));
 
         const assets = {
-            // webpack-dev-middleware options - See https://github.com/webpack/webpack-dev-middleware
+            // webpack-dev-middleware options
             index: '/public/index.html',
         };
 
@@ -41,7 +40,6 @@ class HapiWebpackHotPlugin {
             timeout: 1,
         } as any);
     }
-
 }
 
 export default HapiWebpackHotPlugin;
