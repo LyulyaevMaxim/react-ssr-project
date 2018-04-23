@@ -17,8 +17,9 @@ let presets = [
     }
   ],
   '@babel/preset-react',
-  '@babel/preset-stage-0',
-  '@babel/typescript'
+  ['@babel/preset-stage-0', {
+	  "decoratorsLegacy": true
+  }]
 ]
 
 let plugins = [

@@ -3,14 +3,15 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const RobotstxtPlugin = require('robotstxt-webpack-plugin').default;
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const pkg = require('./package.json');
 
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+const pkg = require('./package.json');
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const NODE_ENV = process.env.NODE_ENV || 'production';
@@ -92,9 +93,9 @@ const webpackConfig = {
     ],
   },
 
-  plugins: [
-    new SimpleProgressPlugin(),
+	// optimization.splitChunks
 
+  plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     }),
@@ -119,19 +120,17 @@ const webpackConfig = {
         : 'assets/styles/[name].[chunkhash].css',
     }),
 
-    isDevelopment
-      ? null
-      : new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: module => /node_modules/.test(module.resource),
-      }),
 
-    isDevelopment
-      ? null
-      : new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' }),
-
-    isProduction
-      ? new webpack.optimize.UglifyJsPlugin()
+	  isProduction
+      ? new UglifyJSPlugin({
+			  // sourceMap: true,
+			  cache: true,
+			  parallel: true,
+			  uglifyOptions: {
+				  mangle: true
+				  // compress: false
+			  }
+		  })
       : null,
 
     isDevelopment
@@ -162,7 +161,7 @@ const webpackConfig = {
       ],
     }),
 
-    new WriteFilePlugin(), // Forces webpack-dev-server to write files.
+    new WriteFilePlugin(),
 
     // isDevelopment ? null : new BundleAnalyzerPlugin()
   ].filter(Boolean),
