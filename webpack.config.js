@@ -146,7 +146,7 @@ module.exports = /*(env, argv) => {
 								//useTranspileModule: true, //режим быстрой генерации
 								useBabel: true,
 								babelCore: '@babel/core',
-								babelOptions: require(`${root}/configs/babelrc`)
+								// babelOptions: require(`${root}/configs/.babelrc`)
 							},
 						}
 					],

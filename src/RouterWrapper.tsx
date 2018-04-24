@@ -5,13 +5,13 @@ import { History, createMemoryHistory } from 'history';
 import { StaticRouter } from 'react-router';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Header from './components/header/header';
-import FooterAsync from './components/footer';
-import AboutAsync from './components/about';
-import ContactsAsync from './components/contacts';
+import Header from '~components/header/header';
+import FooterAsync from '~components/footer';
+import AboutAsync from '~components/about';
+import ContactsAsync from '~components/contacts';
 
-import IStore from './stores/IStore';
-import ISagaStore from './stores/ISagaStore';
+import IStore from '~stores/IStore';
+import ISagaStore from '~stores/ISagaStore';
 
 interface IProviderWrapperProps {
   store: ISagaStore<IStore>;

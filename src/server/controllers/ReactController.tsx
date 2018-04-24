@@ -7,9 +7,9 @@ import * as fse from 'fs-extra';
 import * as React from 'react';
 import * as Hapi from 'hapi';
 import RouterWrapper from '../../RouterWrapper';
-import rootSaga from '../../stores/rootSaga';
-import ISagaStore from '../../stores/ISagaStore';
-import IStore from '../../stores/IStore';
+import rootSaga from '~stores/rootSaga';
+import ISagaStore from '~stores/ISagaStore';
+import IStore from '~stores/IStore';
 import IController from './IController';
 import ProviderUtility from '~utils/ProviderUtility';
 

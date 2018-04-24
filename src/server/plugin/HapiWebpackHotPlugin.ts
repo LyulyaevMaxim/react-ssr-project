@@ -6,7 +6,7 @@ import ServerManager from '../ServerManager';
 
 class HapiWebpackHotPlugin {
     get plugin(): Hapi.ServerRegisterPluginObject<any> {
-        const config: Webpack.Configuration = require('../../../webpack.config.js'); // tslint:disable-line no-require-imports
+        const config: Webpack.Configuration = require('~webpack/webpack.config.js'); // tslint:disable-line no-require-imports
         const compiler: Webpack.Compiler = Webpack(config);
 
         compiler.plugin('done', (stats: any) => this._onDone(stats));

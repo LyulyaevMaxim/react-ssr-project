@@ -1,16 +1,15 @@
 import {createStore, applyMiddleware} from 'redux';
 import {routerMiddleware} from 'react-router-redux';
 import {History} from 'history';
-import rootReducer from '../stores/rootReducer';
+import rootReducer from '~stores/rootReducer';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware, {END, SagaMiddleware} from 'redux-saga';
-import rootSaga from '../stores/rootSaga';
-import IStore from '../stores/IStore';
-import ISagaStore from '../stores/ISagaStore';
+import rootSaga from '~stores/rootSaga';
+import IStore from '~stores/IStore';
+import ISagaStore from '~stores/ISagaStore';
 
 class ProviderUtility {
-
-    public static createProviderStore(initialState: any = {}, history: History = null, isServerSide: boolean = false): ISagaStore<IStore> {
+    static createProviderStore(initialState: any = {}, history: History = null, isServerSide: boolean = false): ISagaStore<IStore> {
         const sagaMiddleware: SagaMiddleware<any> = createSagaMiddleware();
 
         const store = createStore(

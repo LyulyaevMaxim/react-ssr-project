@@ -1,4 +1,3 @@
-// import './assets/styles/index.scss';
 import '~css/index.scss';
 
 import 'fetch-everywhere';
@@ -9,9 +8,9 @@ import { History, createBrowserHistory } from 'history';
 import { AppContainer as ReactHotLoader } from 'react-hot-loader';
 import { AsyncComponentProvider } from 'react-async-component';
 import RouterWrapper from './RouterWrapper';
-import ProviderUtility from './utils/ProviderUtility';
-import IStore from './stores/IStore';
-import ISagaStore from './stores/ISagaStore';
+import ProviderUtility from '~utils/ProviderUtility';
+import IStore from '~stores/IStore';
+import ISagaStore from '~stores/ISagaStore';
 
 (async (window: Window) => {
 
