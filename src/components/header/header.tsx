@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+// import styles from '~css/index.scss';
+// const styles = require("~css/header.scss");
 
 interface IProps { }
 interface IState { }
+
+// console.log("styles", styles, require("./header.scss"));
 
 class Header extends React.Component<IProps, IState> {
 
