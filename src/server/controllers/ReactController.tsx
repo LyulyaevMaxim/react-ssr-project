@@ -11,7 +11,7 @@ import rootSaga from '../../stores/rootSaga';
 import ISagaStore from '../../stores/ISagaStore';
 import IStore from '../../stores/IStore';
 import IController from './IController';
-import ProviderUtility from '../../utils/ProviderUtility';
+import ProviderUtility from '~utils/ProviderUtility';
 
 
 class ReactController implements IController {
