@@ -2,18 +2,20 @@ const path = require('path')
 const webpack = require('webpack')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const RobotstxtPlugin = require('robotstxt-webpack-plugin').default
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ExtractCssPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 // const CssChunksHtmlWebpackPlugin = require('css-chunks-html-webpack-plugin')
-// const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const LodashWebpackOptimize = require('lodash-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const pkg = require('./package.json');
@@ -52,69 +54,66 @@ module.exports = /*(env, argv) => {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 	},
 
-	devtool: !isDev
-		? 'none'
-		: 'source-map',
+	devtool: isDev ? 'source-map' : 'none',
 
 	performance: {
 		maxAssetSize: 500000,
 	},
 
 	optimization: {
+		runtimeChunk: false,
+		namedModules: true,
+		noEmitOnErrors: true,
+		concatenateModules: true,
+		minimize: true,
 		splitChunks: {
 			automaticNameDelimiter: "-",
-
+			chunks: 'all',
 			cacheGroups: {
 				vendor: {
 					name: 'vendor',
 					chunks: 'all',
 					test: /[\\/]node_modules[\\/]/,
 					priority: -10
-				}
+				},
+				// default: false,//disable default 'commons' chunk behavior
+				// vendors: false, //disable vendor splitting(not sure if you want it)
+				// styles: {
+				// 	name: true,
+				// 	test: /\.s?css$/,
+				// 	minChunks: 1
+				//	enforce: true
+				// },
 			}
-		}
-	},
-
-	plugins: [
-		/*isDev
-			? null
-			: new webpack.optimize.ModuleConcatenationPlugin(),*/
-
-		isDev
-			? new webpack.HotModuleReplacementPlugin() // enable HMR globally
-			: null,
-
-		/*isDev
-			? new webpack.NamedModulesPlugin() // prints more readable module names in the browser console on HMR updates
-			: null,*/
-
-
-		new MiniCssExtractPlugin({
-			filename: isDev
-				? 'assets/styles/main.css'
-				: 'assets/styles/[name].[chunkhash].css',
-			// filename: 'css/[name].[contenthash].css',
-			ignoreOrder: true //для css-modules
-		}),
-
-		/*new ExtractCssChunks({
-			filename: 'css/[name].[contenthash].css',
-			ignoreOrder: true, //для css-modules
-			disable: isDev
-		}),*/
-		// new CssChunksHtmlWebpackPlugin({ inject: 'head' }),
-
-		!isDev
-			? new UglifyJSPlugin({
-				// sourceMap: true,
+		},
+		minimizer: [
+			new UglifyJSPlugin({
 				cache: true,
 				parallel: true,
 				uglifyOptions: {
-					mangle: true
+					mangle: true,
 					// compress: false
 				}
+			}),
+			new OptimizeCSSAssetsPlugin({
+				cssProcessor: require('cssnano'),
+				cssProcessorOptions: { discardComments: { removeAll: true } , zindex: {}},
 			})
+		]
+	},
+
+	plugins: [
+		isDev
+			? (new webpack.HotModuleReplacementPlugin()) // enable HMR globally
 			: null,
+
+		new ExtractCssPlugin({
+			filename: `assets/styles/[name]${isDev ? ".[hash]" : ''}.css`,
+			chunkFilename: `assets/styles/[id]${isDev ? ".[hash]" : ''}.css`,
+			ignoreOrder: true
+		}),
+
+		// new CssChunksHtmlWebpackPlugin({ inject: 'head' }), //пока не совместим
 
 		isDev
 			? null
@@ -122,15 +121,42 @@ module.exports = /*(env, argv) => {
 
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'src/index.html'),
-			minify: !isDev ? {collapseWhitespace: true, collapseInlineTagWhitespace: true} : false,
 			alwaysWriteToDisk: true,
+			inject: true,
+			cache: true,
+			[!isDev && 'minify']: {
+				minifyJS: true,
+				minifyCSS: true,
+				removeComments: true,
+				removeAttributeQuotes: true,
+				removeEmptyAttributes: true,
+				removeScriptTypeAttributes: true,
+				collapseWhitespace: true,
+				collapseInlineTagWhitespace: true,
+				keepClosingSlash: true,
+				sortAttributes: true,
+				sortClassName: true,
+				collapseBooleanAttributes: true
+			}
 		}),
-		new HtmlWebpackHarddiskPlugin(),
+		new ScriptExtHtmlWebpackPlugin({
+			defaultAttribute: 'defer',
+			preload: /\.js$/
+		}),
+	/*new PreloadWebpackPlugin({
+		rel: 'preload',
+		include: 'allAssets',
+		fileWhitelist: [/\.woff2/],
+		as(entry) {
+			if (/\.woff2$/.test(entry)) return 'font'
+		}
+	})*/
+	new HtmlWebpackHarddiskPlugin(),
 
-		new CopyWebpackPlugin([
-			{
-				context: 'src/assets',
-				from: '**/*',
+	new CopyWebpackPlugin([
+		{
+			context: 'src/assets',
+			from: '**/*',
 				to: 'assets',
 				ignore: ['styles/**/*']
 			}
@@ -145,6 +171,13 @@ module.exports = /*(env, argv) => {
 		}),
 
 		new WriteFilePlugin(),
+
+    isDev ? null : new LodashWebpackOptimize({ /*не работает*/
+	    chaining: false,
+	    shorthands: true,
+	    collections: true,
+	    paths: true
+    }),
 
 		// isDev ? null : new BundleAnalyzerPlugin()
 	].filter(Boolean),
@@ -177,7 +210,7 @@ module.exports = /*(env, argv) => {
 				test: /\.scss$/,
 				use: [
 					{
-						loader: MiniCssExtractPlugin.loader
+						loader: ExtractCssPlugin.loader
 					},
 					{
 						loader: 'css-loader',

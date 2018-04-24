@@ -1,4 +1,5 @@
 import '~css/index.scss';
+import '~css/header.scss';
 
 import 'fetch-everywhere';
 import * as bootstrap from 'react-async-bootstrapper';

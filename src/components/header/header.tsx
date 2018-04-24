@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import {get} from "lodash";
 // import styles from '~css/index.scss';
 // const styles = require("~css/header.scss");
+
+// console.log(get({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c'));
+// console.log(styles);
 
 interface IProps { }
 interface IState { }
