@@ -1,9 +1,3 @@
-import { asyncComponent } from 'react-async-component';
+import loadable from 'loadable-components';
 
-const FooterAsync = asyncComponent({
-  name: 'FooterAsync',
-  serverMode: 'defer',
-  resolve: () => require('./footer'),
-});
-
-export default FooterAsync;
+export const FooterAsync = loadable(() => import('./footer'));

@@ -12,7 +12,6 @@ const RobotstxtPlugin = require('robotstxt-webpack-plugin').default
 
 const ExtractCssPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-// const CssChunksHtmlWebpackPlugin = require('css-chunks-html-webpack-plugin')
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const LodashWebpackOptimize = require('lodash-webpack-plugin')
@@ -23,13 +22,9 @@ const root = path.resolve(__dirname, './')
 
 const mode = process.env.NODE_ENV
 const isDev = mode === 'development'
+console.log(`mode: ${mode}, isDev: ${isDev}`)
 
-module.exports = /*(env, argv) => {
-	const mode = typeof env !== 'undefined' ? env : argv.mode
-	const isDev = mode === 'development'
-	console.log(`mode: ${mode}, isDev: ${isDev}`)
-
-	return */{
+module.exports = {
 	mode,
 	entry: isDev
 		? [
@@ -44,10 +39,8 @@ module.exports = /*(env, argv) => {
 
 	output: {
 		path: path.join(__dirname, 'dist/public/'),
-		chunkFilename: 'assets/scripts/[name].[chunkhash].js',
-		filename: isDev
-			? 'main.js'
-			: 'assets/scripts/[name].[chunkhash].js',
+		chunkFilename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`,
+		filename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`
 	},
 
 	resolve: {
@@ -60,7 +53,7 @@ module.exports = /*(env, argv) => {
 		maxAssetSize: 500000,
 	},
 
-	optimization: {
+	optimization: isDev ? {} : {
 		runtimeChunk: false,
 		namedModules: true,
 		noEmitOnErrors: true,
@@ -75,15 +68,7 @@ module.exports = /*(env, argv) => {
 					chunks: 'all',
 					test: /[\\/]node_modules[\\/]/,
 					priority: -10
-				},
-				// default: false,//disable default 'commons' chunk behavior
-				// vendors: false, //disable vendor splitting(not sure if you want it)
-				// styles: {
-				// 	name: true,
-				// 	test: /\.s?css$/,
-				// 	minChunks: 1
-				//	enforce: true
-				// },
+				}
 			}
 		},
 		minimizer: [
@@ -104,16 +89,14 @@ module.exports = /*(env, argv) => {
 
 	plugins: [
 		isDev
-			? (new webpack.HotModuleReplacementPlugin()) // enable HMR globally
+			? (new webpack.HotModuleReplacementPlugin())
 			: null,
 
 		new ExtractCssPlugin({
-			filename: `assets/styles/[name]${isDev ? ".[hash]" : ''}.css`,
-			chunkFilename: `assets/styles/[id]${isDev ? ".[hash]" : ''}.css`,
+			filename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
+			chunkFilename: `assets/styles/[id]${isDev ? '' : ".[hash]"}.css`,
 			ignoreOrder: true
 		}),
-
-		// new CssChunksHtmlWebpackPlugin({ inject: 'head' }), //пока не совместим
 
 		isDev
 			? null
@@ -164,9 +147,9 @@ module.exports = /*(env, argv) => {
 
 		new RobotstxtPlugin({
 			policy: [
-				!isDev
-					? {userAgent: '*', allow: '/'}
-					: {userAgent: '*', disallow: '/'},
+				isDev
+					? {userAgent: '*', disallow: '/'}
+					: {userAgent: '*', allow: '/'}
 			],
 		}),
 
