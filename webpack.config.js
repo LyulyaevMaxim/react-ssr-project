@@ -17,7 +17,6 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const LodashWebpackOptimize = require('lodash-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const pkg = require('./package.json');
 const root = path.resolve(__dirname, './')
 
 const mode = process.env.NODE_ENV
@@ -47,13 +46,11 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 	},
 
-	devtool: isDev ? 'source-map' : 'none',
-
 	performance: {
 		maxAssetSize: 500000,
 	},
 
-	optimization: isDev ? {} : {
+	optimization: !isDev ? {
 		runtimeChunk: false,
 		namedModules: true,
 		noEmitOnErrors: true,
@@ -85,22 +82,16 @@ module.exports = {
 				cssProcessorOptions: { discardComments: { removeAll: true } , zindex: {}},
 			})
 		]
-	},
+	} : {},
 
 	plugins: [
-		isDev
-			? (new webpack.HotModuleReplacementPlugin())
-			: null,
-
+		isDev && new webpack.HotModuleReplacementPlugin(),
 		new ExtractCssPlugin({
 			filename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
-			chunkFilename: `assets/styles/[id]${isDev ? '' : ".[hash]"}.css`,
+			chunkFilename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
 			ignoreOrder: true
 		}),
-
-		isDev
-			? null
-			: new webpack.BannerPlugin(`${pkg.version} ${new Date().toString()}`),
+		!isDev && new webpack.BannerPlugin(`${require('./package.json').version} ${new Date().toString()}`),
 
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'src/index.html'),
@@ -126,43 +117,32 @@ module.exports = {
 			defaultAttribute: 'defer',
 			preload: /\.js$/
 		}),
-	/*new PreloadWebpackPlugin({
-		rel: 'preload',
-		include: 'allAssets',
-		fileWhitelist: [/\.woff2/],
-		as(entry) {
-			if (/\.woff2$/.test(entry)) return 'font'
-		}
-	})*/
-	new HtmlWebpackHarddiskPlugin(),
-
-	new CopyWebpackPlugin([
-		{
-			context: 'src/assets',
-			from: '**/*',
+		/*new PreloadWebpackPlugin({
+			rel: 'preload',
+			include: 'allAssets',
+			fileWhitelist: [/\.woff2/],
+			as(entry) {
+				if (/\.woff2$/.test(entry)) return 'font'
+			}
+		})*/
+		new HtmlWebpackHarddiskPlugin(),
+		new CopyWebpackPlugin([
+			{
+				context: 'src/assets',
+				from: '**/*',
 				to: 'assets',
 				ignore: ['styles/**/*']
 			}
 		]),
-
-		new RobotstxtPlugin({
-			policy: [
-				isDev
-					? {userAgent: '*', disallow: '/'}
-					: {userAgent: '*', allow: '/'}
-			],
-		}),
-
+		new RobotstxtPlugin({policy: [{userAgent: '*', [isDev ? 'disallow' : 'allow']: '/'}]}),
 		new WriteFilePlugin(),
-
-    isDev ? null : new LodashWebpackOptimize({ /*не работает*/
-	    chaining: false,
-	    shorthands: true,
-	    collections: true,
-	    paths: true
-    }),
-
-		// isDev ? null : new BundleAnalyzerPlugin()
+		!isDev &&  new LodashWebpackOptimize({ /*не работает*/
+			chaining: false,
+			shorthands: true,
+			collections: true,
+			paths: true
+		}),
+		// !isDev && new BundleAnalyzerPlugin()
 	].filter(Boolean),
 
 	module: {
