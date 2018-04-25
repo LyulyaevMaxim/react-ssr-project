@@ -9,8 +9,8 @@ module.exports = ({ file, options, env }) => {
 			'postcss-import': {
 				resolve: (id, basedir) => {
 					const alias = [
-						{ name: '~css', toPath: 'src/css' },
-						{ name: '~img', toPath: 'src/img' },
+						{ name: '~css', toPath: 'src/assets/styles' },
+						{ name: '~img', toPath: 'src/assets/media' },
 						{ name: 'node_modules', toPath: 'node_modules' }
 					]
 
@@ -27,7 +27,7 @@ module.exports = ({ file, options, env }) => {
 			'postcss-color-function': {},
 			'postcss-selector-not': {},
 			'postcss-selector-matches': {},
-			'postcss-svg': { dirs: [path.resolve(__dirname, '../src/img/')] , svgo: {}},
+			'postcss-svg': { dirs: [path.resolve(__dirname, '../src/assets/media')] , svgo: {}},
 			'postcss-aspect-ratio': {},
 			'postcss-line-height-px-to-unitless': {},
 			'postcss-pxtorem': { rootValue: 16, mediaQuery: false },

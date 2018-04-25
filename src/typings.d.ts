@@ -17,3 +17,4 @@ declare module 'react-async-component';
 
 declare module 'hapi-webpack-plugin';
 
+declare module '*.svg';

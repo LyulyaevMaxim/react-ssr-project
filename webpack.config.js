@@ -221,6 +221,39 @@ module.exports = {
 					}
 				]
 			},
+			{
+				test: /\.(svg|png|jpg|gif)$/,
+				// include: `${root}/src/assets/media`,
+				use: [
+					'file-loader',
+					{
+						loader: 'image-webpack-loader',
+						options: !isDev ? {
+								svgo: {
+									plugins: [{ removeTitle: true }, { convertPathData: false }]
+								},
+								mozjpeg: {
+									enabled: false, //пока не заработает с loadable-components
+									progressive: true,
+									quality: 65
+								},
+								pngquant: {
+									quality: '65-90',
+									speed: 4
+								},
+								optipng: {
+									enabled: false
+								},
+								gifsicle: {
+									enabled: false
+								},
+								webp: {
+									enabled: false
+								}
+							} : {}
+					}
+				]
+			}
 		]
 	}
 }
