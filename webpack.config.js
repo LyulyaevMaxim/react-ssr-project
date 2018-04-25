@@ -31,10 +31,9 @@ module.exports = {
 			`webpack-hot-middleware/client?path=http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}/__webpack_hmr`,
 			'./src/client.tsx',
 		]
-		: [
-			'./src/client.tsx',
-		],
-
+		: {
+			client: './src/client.tsx'
+		},
 
 	output: {
 		path: path.join(__dirname, 'dist/public/'),
@@ -46,16 +45,24 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 	},
 
-	performance: {
-		maxAssetSize: 500000,
-	},
+	devtool: isDev ? 'eval' : 'none',
+
+	cache: isDev,
 
 	optimization: !isDev ? {
-		runtimeChunk: false,
-		namedModules: true,
-		noEmitOnErrors: true,
+		namedModules: false,
 		concatenateModules: true,
-		minimize: true,
+		removeAvailableModules: true,
+		providedExports: true,
+		usedExports: true,
+		sideEffects: true,
+		noEmitOnErrors: true,
+		namedChunks: false,
+		splitChunks: true,
+		mergeDuplicateChunks: true,
+		removeEmptyChunks: true,
+		flagIncludedChunks: true,
+		runtimeChunk: true,
 		splitChunks: {
 			automaticNameDelimiter: "-",
 			chunks: 'all',
@@ -122,9 +129,10 @@ module.exports = {
 			include: 'allAssets',
 			fileWhitelist: [/\.woff2/],
 			as(entry) {
+				console.log(entry)
 				if (/\.woff2$/.test(entry)) return 'font'
 			}
-		})*/
+		}),*/
 		new HtmlWebpackHarddiskPlugin(),
 		new CopyWebpackPlugin([
 			{
@@ -172,9 +180,8 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				use: [
-					{
-						loader: ExtractCssPlugin.loader
-					},
+					'style-loader',
+					ExtractCssPlugin.loader,
 					{
 						loader: 'css-loader',
 						options: {
@@ -202,7 +209,19 @@ module.exports = {
 					}
 				]
 			},
-		],
+			{
+				test: /\.(woff2|woff)$/,
+				include: `${root}/src/assets/fonts`,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+						}
+					}
+				]
+			},
+		]
 	}
 }
 
