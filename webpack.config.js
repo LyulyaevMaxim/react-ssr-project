@@ -38,7 +38,8 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist/public/'),
 		chunkFilename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`,
-		filename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`
+		filename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`,
+		// publicPath: "./"
 	},
 
 	resolve: {

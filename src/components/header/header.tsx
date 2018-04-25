@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { hot } from 'react-hot-loader'
-// import * as logo from '~img/arrow-top-green.svg'
+import * as logo from 'arrow-top-green.svg'
 // import {get} from "lodash";
 // import styles from '~css/index.scss';
 // const styles = require("~css/header.scss");
@@ -11,7 +11,6 @@ import { hot } from 'react-hot-loader'
 // const img = require('~img/arrow-top-green.svg')
 // console.log( require(path.resolve(__dirname, '../../public/assets/media/arrow-top-green.svg')));
 // console.log("styles", styles, require("./header.scss"));
-// console.log(logo)
 
 interface IProps { }
 interface IState { }
@@ -21,7 +20,7 @@ class Header extends React.Component<IProps, IState> {
   public render(): JSX.Element {
     return (
       <div className="header clearfix">
-        {/*<img src="" alt="" />*/}
+        <img src={logo} alt="" />
         <nav>
           <ul className="nav nav-pills float-right">
             <li className="nav-item">
