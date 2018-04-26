@@ -180,8 +180,8 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
+				include: path.join(__dirname, 'src'),
 				use: [
-					'style-loader',
 					ExtractCssPlugin.loader,
 					{
 						loader: 'css-loader',
@@ -202,12 +202,12 @@ module.exports = {
 							sourceMap: isDev ? 'inline' : false
 						}
 					},
-					{
-						loader: 'stylefmt-loader',
-						options: {
-							//config: `${root}/configs/.stylelintrc`
-						}
-					}
+					// {
+					// 	loader: 'stylefmt-loader',
+					// 	options: {
+					// 		//config: `${root}/configs/.stylelintrc`
+					// 	}
+					// }
 				]
 			},
 			{

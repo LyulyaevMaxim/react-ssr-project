@@ -1,0 +1,74 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["last 1 versions"],
+          "node": "current"
+        },
+        "modules": false,
+        "modules": false,
+        "loose": true,
+        "spec": true,
+        "useBuiltIns": "usage",
+        "forceAllTransforms": true,
+        "debug": false
+      }
+    ],
+    "@babel/preset-react",
+    ["@babel/preset-stage-0", {
+      "decoratorsLegacy": true
+    }],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    [
+      "react-css-modules",
+      {
+        "webpackHotModuleReloading": true,
+        "handleMissingStyleName": "warn",
+        "generateScopedName": "[local]-[hash:base64:4]",
+        "filetypes": {
+          ".scss": { "syntax": "postcss-scss" }
+        },
+        "exclude": "node_modules"
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "~css": "./src/assets/styles",
+          "~constants": "./src/constants.json",
+          "~utils": "./src/utils",
+          "~stores": "./src/stores",
+          "~modules": "./src/modules",
+          "~components": "./src/components",
+          "~webpack": "./"
+        }
+      }
+    ],
+    "@babel/plugin-proposal-object-rest-spread",
+    ["transform-assets-import-to-string", {
+      "baseUri": "assets/media"
+    }],
+    ["css-modules-transform", {
+      "extensions": [".css", ".scss"],
+      "generateScopedName": "[local]-[hash:base64:4]",
+//      "keepImport": true,
+      "extractCss": {
+        "dir": "./dist/public/assets/styles",
+        "relativeRoot": "./src/",
+        "filename": "[name].css"
+      },
+      "prepend": ["./configs/postcss-for-babel.js"]
+    }],
+    "@babel/plugin-proposal-class-properties",
+    "closure-elimination",
+    "@babel/plugin-transform-react-constant-elements",
+    "@babel/plugin-transform-react-inline-elements",
+    ["@babel/plugin-transform-modules-commonjs", {"noInterop": true, "lazy": true, "loose": true}]
+  ]
+}

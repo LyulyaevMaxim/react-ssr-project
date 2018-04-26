@@ -4,6 +4,7 @@ import MetaAction from '~stores/meta/MetaAction';
 import IStore from '~stores/IStore';
 import { Dispatch } from 'redux';
 import IMetaReducerState from '~stores/meta/IMetaReducerState';
+// import styles from './about.scss';
 
 interface IState { }
 interface IProps { }
@@ -18,14 +19,14 @@ const mapDispatchToProps = (dispatch: Dispatch<IStore>): IDispatchToProps => ({
 });
 
 class About extends React.Component<IStateToProps & IDispatchToProps & IProps, IState> {
-
-  public componentWillMount(): void {
+  componentWillMount(): void {
     this.props.setMeta({ title: 'About Page' });
   }
 
-  public render(): JSX.Element {
+  render(): JSX.Element {
+    // console.log(styles);
     return (
-      <div>
+      <section className="about-section">
         <div className="jumbotron">
           <h1 className="display-3">{'About'}</h1>
           <p className="lead">{'This is a React Universal application that uses the libraries below.'}</p>
@@ -57,7 +58,7 @@ class About extends React.Component<IStateToProps & IDispatchToProps & IProps, I
             <p>{'A node server framework.'}</p>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 

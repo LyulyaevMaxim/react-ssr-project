@@ -3,6 +3,25 @@ const path = require('path')
 module.exports = ({ file, options, env }) => {
 	const isProd = env === 'production'
 
+	const stablePlugins = {
+		'postcss-nested': { preserveEmpty: true },'postcss-custom-media': {},
+		'postcss-color-function': {},
+		'postcss-selector-not': {},
+		'postcss-selector-matches': {},
+		'postcss-aspect-ratio': {},
+		'postcss-line-height-px-to-unitless': {},
+		'postcss-pxtorem': { rootValue: 16, mediaQuery: false },
+		'postcss-scale': {},
+		'css-mqpacker': { sort: true },
+		'postcss-flexbugs-fixes': {},
+		autoprefixer: {
+			browsers: ['last 2 versions', 'IE >= 11'],
+			grid: true,
+			flexbox: 'no-2009',
+			remove: true
+		}}
+
+
 	return {
 		parser: 'postcss-scss',
 		plugins: {
@@ -21,26 +40,11 @@ module.exports = ({ file, options, env }) => {
 					return path.resolve(basedir, id)
 				}
 			},
-			'postcss-nested': { preserveEmpty: true },
+			...stablePlugins,
 			'postcss-advanced-variables': {},
-			'postcss-custom-media': {},
-			'postcss-color-function': {},
-			'postcss-selector-not': {},
-			'postcss-selector-matches': {},
 			'postcss-svg': { dirs: [path.resolve(__dirname, '../src/assets/media')] , svgo: {}},
-			'postcss-aspect-ratio': {},
-			'postcss-line-height-px-to-unitless': {},
-			'postcss-pxtorem': { rootValue: 16, mediaQuery: false },
-			'postcss-scale': {},
-			'css-mqpacker': { sort: true },
 			'postcss-preset-env': {},
-			'postcss-flexbugs-fixes': {},
-			autoprefixer: {
-				browsers: ['last 2 versions', 'IE >= 11'],
-				grid: true,
-				flexbox: 'no-2009',
-				remove: true
-			}
-		}
+		},
+		stablePlugins
 	}
 }

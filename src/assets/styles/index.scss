@@ -3,7 +3,7 @@ body {
   color: red;
   z-index: 22;
 
-  &::after {
+  &::before {
     content: '';
     display: block;
     width: 40px;

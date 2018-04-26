@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Header from '~components/header/header';
-import {FooterAsync} from '~components/footer';
+import FooterAsync from '~components/footer';
 import AboutAsync from '~components/about';
 import ContactsAsync from '~components/contacts';
 

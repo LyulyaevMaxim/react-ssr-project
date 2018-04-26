@@ -1,19 +1,20 @@
 import * as React from 'react';
-import styles from './footer.scss';
+// import { hot } from 'react-hot-loader'
 
 interface IProps { }
 interface IState { }
 
 class Footer extends React.PureComponent<IProps, IState> {
-
-  public render(): JSX.Element {
+  render(): JSX.Element {
+      const styles = require('./footer.scss')
+      console.log(`footer: ${styles}`);
     return (
-      <footer className="footer">
-        <p>{'This footer is a deferred async component. It does not render server-side. It lazy loads on the client-side.'}</p>
+      <footer className={styles['footer']}>
+        <p className={styles.p}>Компонент Footer - асинхронный отложенный компонент. Вместо рендеринга на стороне сервера он лениво загружается в браузере клиента</p>
       </footer>
     );
   }
-
 }
 
-export default Footer;
+export default Footer
+// export default hot(module)(Footer)
