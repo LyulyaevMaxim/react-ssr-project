@@ -5,8 +5,8 @@ import { History, createMemoryHistory } from 'history';
 import { StaticRouter } from 'react-router';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Header from '~components/header/header';
-import FooterAsync from '~components/footer';
+import Header from '~components/header';
+import Footer from '~components/footer';
 import AboutAsync from '~components/about';
 import ContactsAsync from '~components/contacts';
 
@@ -49,7 +49,7 @@ const RouterWrapper: React.StatelessComponent<IProviderWrapperProps> = (props: I
               to="/"
             />
           </Switch>
-          <FooterAsync />
+          <Footer />
         </div>
       </Router>
     </Provider>

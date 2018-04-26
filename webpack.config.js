@@ -94,11 +94,11 @@ module.exports = {
 
 	plugins: [
 		isDev && new webpack.HotModuleReplacementPlugin(),
-		new ExtractCssPlugin({
-			filename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
-			chunkFilename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
-			ignoreOrder: true
-		}),
+		// new ExtractCssPlugin({
+		// 	filename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
+		// 	chunkFilename: `assets/styles/[name]${isDev ? '' : ".[hash]"}.css`,
+		// 	ignoreOrder: true
+		// }),
 		!isDev && new webpack.BannerPlugin(`${require('./package.json').version} ${new Date().toString()}`),
 
 		new HtmlWebpackPlugin({

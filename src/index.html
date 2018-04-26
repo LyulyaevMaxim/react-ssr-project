@@ -16,21 +16,15 @@
         <!--для Android-->
         <meta name="application-name" content="React Project Mobile">
         <meta name="mobile-web-app-capable" content="yes">
-        <link
-            href="assets/media/favicon.ico"
-            rel="icon"
-        />
-	<link
-            href="assets/fonts/fonts.css"
-            rel="stylesheet"
-        />
+
+	<link href="assets/fonts/fonts.css" rel="stylesheet">
 	<link href="assets/fonts/museo-sans-regular.woff2" rel="preload" as="font" crossorigin>
+	<link href="assets/styles/index.css" rel="stylesheet">	
+        <link href="assets/media/favicon.ico" rel="icon">
     </head>
     <body>
         <app-container id="root">{content}</app-container>
-
         <script>window.__STATE__ = {state}</script>
         <script>window.__ASYNC_COMPONENTS_STATE__ = {asyncComponentsState}</script>
-        <noscript>Необходимо включить JavaScript для работы с этим приложением.</noscript>
     </body>
 </html>

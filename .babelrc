@@ -25,18 +25,6 @@
   "plugins": [
     "react-hot-loader/babel",
     [
-      "react-css-modules",
-      {
-        "webpackHotModuleReloading": true,
-        "handleMissingStyleName": "warn",
-        "generateScopedName": "[local]-[hash:base64:4]",
-        "filetypes": {
-          ".scss": { "syntax": "postcss-scss" }
-        },
-        "exclude": "node_modules"
-      }
-    ],
-    [
       "module-resolver",
       {
         "alias": {
@@ -55,9 +43,8 @@
       "baseUri": "assets/media"
     }],
     ["css-modules-transform", {
-      "extensions": [".css", ".scss"],
+      "extensions": [".scss"],
       "generateScopedName": "[local]-[hash:base64:4]",
-//      "keepImport": true,
       "extractCss": {
         "dir": "./dist/public/assets/styles",
         "relativeRoot": "./src/",
