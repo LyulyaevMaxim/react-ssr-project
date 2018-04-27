@@ -39,7 +39,7 @@ module.exports = {
 		path: path.join(__dirname, 'dist/public/'),
 		chunkFilename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`,
 		filename: `assets/scripts/[name]${isDev ? '' : '.[chunkhash]'}.js`,
-		// publicPath: "./"
+		publicPath: "/"
 	},
 
 	resolve: {
@@ -180,7 +180,7 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
-				include: path.join(__dirname, 'src'),
+				// include: path.join(__dirname, 'src'),
 				use: [
 					ExtractCssPlugin.loader,
 					{

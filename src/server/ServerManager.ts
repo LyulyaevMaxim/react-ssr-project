@@ -2,8 +2,8 @@ import * as Hapi from 'hapi';
 import IController from './controllers/IController';
 
 class ServerManager {
-    static readonly PORT: number = parseInt(process.env.PORT, 10) || 3000;
-    static readonly HOST: string = process.env.HOST || 'localhost';
+    static readonly PORT: number = parseInt(process.env.PORT, 10) || 5000;
+    // static readonly HOST: string = process.env.HOST || 'localhost';
     static readonly NODE_ENV: string = process.env.NODE_ENV;
 
     isDevelopment: boolean = (ServerManager.NODE_ENV === 'development');
@@ -14,7 +14,7 @@ class ServerManager {
 
     constructor() {
         const options: Hapi.ServerOptions = {
-            host: ServerManager.HOST,
+            // host: ServerManager.HOST,
             port: ServerManager.PORT,
         };
 

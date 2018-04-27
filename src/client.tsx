@@ -1,4 +1,3 @@
-import '~css/index.scss';
 import 'fetch-everywhere';
 import * as bootstrap from 'react-async-bootstrapper';
 import * as React from 'react';
@@ -10,6 +9,7 @@ import RouterWrapper from './RouterWrapper';
 import ProviderUtility from '~utils/ProviderUtility';
 import IStore from '~stores/IStore';
 import ISagaStore from '~stores/ISagaStore';
+import '~css/index.scss';
 
 (async (window: Window) => {
 

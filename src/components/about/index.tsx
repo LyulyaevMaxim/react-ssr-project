@@ -44,12 +44,12 @@ class About extends React.Component<IStateToProps & IDispatchToProps & IProps, I
         ]
         return (
           <React.Fragment>
-	          <link href="assets/styles/about.css" rel="stylesheet"/>
+	          <link href="/assets/styles/about.css" rel="stylesheet"/>
               <section className={styles['about-section']}>
                   <h1>О проекте</h1>
                   <h3>Среда для эффективной разработки Front-End приложений</h3>
                   <div className='about-grid'>
-                      {libs.map(({title, description}) => <article>
+                      {libs.map(({title, description}) => <article key={title}>
                           <h4>{title}</h4>
                           <p>{description}</p>
                       </article>)}

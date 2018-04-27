@@ -12,7 +12,7 @@ class Footer extends React.PureComponent<IProps, IState> {
         const styles = require('./footer.scss')
         return (
             <React.Fragment>
-                <link href="assets/styles/footer.css" rel="stylesheet"/>
+                <link href="/assets/styles/footer.css" rel="stylesheet"/>
                 <footer className={styles['footer']}>
                     <p className={styles['p']}>Компонент Footer - асинхронный компонент</p>
                 </footer>

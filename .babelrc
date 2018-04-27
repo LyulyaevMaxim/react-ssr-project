@@ -40,14 +40,14 @@
     ],
     "@babel/plugin-proposal-object-rest-spread",
     ["transform-assets-import-to-string", {
-      "baseUri": "assets/media"
+      "baseUri": "/assets/media"
     }],
     ["css-modules-transform", {
       "extensions": [".scss"],
       "generateScopedName": "[local]-[hash:base64:4]",
       "extractCss": {
         "dir": "./dist/public/assets/styles",
-        "relativeRoot": "./src/",
+//        "relativeRoot": "./src/",
         "filename": "[name].css"
       },
       "prepend": ["./configs/postcss-for-babel.js"]
